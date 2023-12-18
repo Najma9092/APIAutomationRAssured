@@ -1,0 +1,22 @@
+stages:
+  - clean
+  - build
+  - deploy
+
+clean build:
+  image:
+    name:
+      maven: 3.8-open Jdk-11
+  stage: clean
+  script:
+    - mvn clean
+
+  run api test:
+    image: maven:3.8-open jdk-11
+    stage: build
+    script:
+      - mvn test -Dsurefire.suiteXmlFiles=testng.xml
+    artifacts:
+      paths:
+        -allure-results
+
